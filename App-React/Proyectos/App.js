@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import { StyleSheet, Text, View } from "react-native";
+import Home from "./Pantallas_Utilidades/Home";
+import Consultar_Proyectos from "./Proyectos_Modulo/Consultar_Proyectos";
+import Eliminar_Proyectos from "./Proyectos_Modulo/Eliminar_Proyectos";
+import Menu_Proyectos from "./Proyectos_Modulo/Menu_Proyectos";
+import Modificar_Proyectos from "./Proyectos_Modulo/Modificar_Proyectos";
+import Registrar_Proyectos from "./Proyectos_Modulo/Registrar_Proyectos";
+
+
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Proyectos" component={Home} />
+        <Stack.Screen name="MenuProyectos" component={Menu_Proyectos} />
+        <Stack.Screen name="EliminarProyectos" component={Eliminar_Proyectos} />
+        <Stack.Screen name="RegistrarProyecto" component={Registrar_Proyectos} />
+        <Stack.Screen name="ConsultarProyecto" component={Consultar_Proyectos} />
+        <Stack.Screen name="ModificarProyecto" component={Modificar_Proyectos} />
+
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
