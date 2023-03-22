@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { Button, StyleSheet, Text, View } from "react-native";
 
-export default function Menu_Pr({ navigation }) {
+export default function Menu_Revisiones({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.botones}>
