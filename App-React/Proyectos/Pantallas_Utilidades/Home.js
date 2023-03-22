@@ -8,10 +8,10 @@ export default function Home({ navigation }) {
         <Button onPress={() => navigation.navigate('MenuProyectos')} title="Proyectos" color="#841584" />
       </View>
       <View style={styles.botones}>
-        <Button onPress={() => navigation.navigate('MenuProyectos')} title="Entregables" color="#841584" />
+        <Button onPress={() => navigation.navigate('MenuEntregables')} title="Entregables" color="#841584" />
       </View>
       <View style={styles.botones}>
-        <Button onPress={() => navigation.navigate('MenuProyectos')} title="Revisiones" color="#841584" />
+        <Button onPress={() => navigation.navigate('MenuRevisiones')} title="Revisiones" color="#841584" />
       </View>
       <StatusBar style="auto" />
     </View>
