@@ -6,7 +6,7 @@ export default function Menu_Proyectos({ navigation }) {
     <View style={styles.container}>
       <View style={styles.botones}>
       <Button
-        onPress={() => navigation.navigate('ResgitrarProyectos')}
+        onPress={() => navigation.navigate('RegitrarProyectos')}
         title="Registrar"
         color="#841584"
       />
