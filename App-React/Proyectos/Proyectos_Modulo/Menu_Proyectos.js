@@ -13,21 +13,21 @@ export default function Menu_Proyectos({ navigation }) {
       </View>
       <View style={styles.botones}>
       <Button
-        onPress={() => navigation.navigate('ResgitrarProyectos')}
+        onPress={() => navigation.navigate('ConsultarProyecto')}
         title="Consultar"
         color="#841584"
       />
       </View>
       <View style={styles.botones}>
       <Button
-        onPress={() => navigation.navigate('ResgitrarProyectos')}
+        onPress={() => navigation.navigate('EliminarProyectos')}
         title="Eliminar"
         color="#841584"
       />
       </View>
       <View style={styles.botones}>
       <Button
-        onPress={() => navigation.navigate('ResgitrarProyectos')}
+        onPress={() => navigation.navigate('ModificarProyecto')}
         title="Modificar"
         color="#841584"
       />

@@ -25,6 +25,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "sourceExts": ["ts","tsx", "js"]
   }
 }
