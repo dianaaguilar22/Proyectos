@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
+export default function Eliminar_Revision() {
   return (
     <View style={styles.container}>
-      <Text>Eliminar revision</Text>
+      
       <StatusBar style="auto" />
     </View>
   );
