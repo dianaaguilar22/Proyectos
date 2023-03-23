@@ -1,0 +1,7 @@
+{
+   "_id":"<ObjectID>",
+   "Nombre":"<string>",
+   "Temas":["<String>"],
+   "Fecha_Inicio":"<String>",
+   "Fecha_Termina":"<String>"
+}
