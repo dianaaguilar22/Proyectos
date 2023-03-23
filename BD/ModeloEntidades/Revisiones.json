@@ -1,0 +1,6 @@
+{
+    "_id":"<ObjectId>",
+    "Fecha":"<date>",
+    "Nota":"<string>",
+    "Calificacion":"<integer>"
+}
