@@ -1,5 +1,6 @@
 {
     "_id":"<ObjectId>",
+    "idProyectos":"ref(Proyectos)",
     "Fecha":"<date>",
     "Nota":"<string>",
     "Calificacion":"<integer>"
