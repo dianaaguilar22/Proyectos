@@ -2,6 +2,6 @@
    "_id":"<ObjectID>",
    "Nombre":"<string>",
    "Temas":["<String>"],
-   "Fecha_Inicio":"<String>",
-   "Fecha_Termina":"<String>"
+   "Fecha_Inicio":"<Date>",
+   "Fecha_Termina":"<Date>"
 }

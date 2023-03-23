@@ -1,0 +1,15 @@
+///**Creación de la BD**////
+
+use Proyectos
+
+/***Creación de las colecciones**///
+
+
+/**Proyectos***/
+db.createColletion("proyectos");
+
+/**Entregables***/
+db.createColletion("Entregables");
+
+/**Revisiones***/
+db.createColletion("Revisiones");
