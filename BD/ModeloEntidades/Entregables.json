@@ -1,0 +1,7 @@
+{
+    "_id": "<ObjectId>",
+    "Fecha_Programada": "<date>",
+    "Fecha_entregado": "<date>",
+    "Observaciones":"<string>",
+    "Archivo":"<binary>"
+}
