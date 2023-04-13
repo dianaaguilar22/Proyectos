@@ -1,7 +1,16 @@
 {
-   "_id":"<ObjectID>",
-   "Nombre":"<string>",
-   "Temas":["<String>"],
-   "Fecha_Inicio":"<Date>",
-   "Fecha_Termina":"<Date>"
+   "_id": "<ObjectID>",
+   "Nombre": "<string>",
+   "Temas": [
+      "<String>"
+   ],
+   "Fecha_Inicio": "<Date>",
+   "Fecha_Termina": "<Date>",
+   "Participantes": [
+      {
+         "IdPersona":"Ref(Persona)",
+         "Nombre": "<String>",
+         "Tipo": "<String>"
+      }
+   ]
 }
