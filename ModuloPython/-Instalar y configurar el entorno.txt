@@ -1,0 +1,26 @@
+-Instalar y configurar el entorno de python en VS
+
+-Instlación del gestor de entorno virtuales 
+
+-Usar en la terminal el siguiente comando:
+pip install virtualenv
+
+-Como usar nuestro entorno virtual:
+ Primero entando en la carpeta ProyectosRest
+	Debemos dirigirnos a:
+		cd ModuloPython/
+	luego usamos:
+		Con la termianl de Git bash:
+			source env/Scripts/activate
+		Con la de PowerShell
+			.\env\Scripts\activate
+
+-Desactivar entorno virtual cuando ya no trabaje con la api de python:
+	Solo usar el siguiente comando:
+		deactivate
+
+
+
+
+
+
