@@ -1,6 +1,6 @@
 from flask import blueprints, request
 from ProyectosRest.ModuloPython.ModuloProyectos.Proyectos import Proyecto
-from mongoDB import Conexion
+
 
 proyectosBP = blueprints.Blueprint("Proyectos", __name__)
 
@@ -20,7 +20,8 @@ def mostrarEnt():
 
 @proyectosBP.route("/proyecto/proyectos", methods=['GET'])
 def mostrar():
-    return Proyecto.proyectos()
+    pr = Proyecto()
+    return pr.consultarProyectos()
 
 
 @proyectosBP.route("/proyecto/proyectos", methods=['POST'])

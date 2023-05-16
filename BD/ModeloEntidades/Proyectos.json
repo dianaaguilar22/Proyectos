@@ -9,7 +9,6 @@
    "Participantes": [
       {
          "IdPersona":"Ref(Persona)",
-         "Nombre": "<String>",
          "Tipo": "<String>"
       }
    ]
