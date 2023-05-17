@@ -31,7 +31,7 @@ def mostrarEnt(id):
 @proyectosBP.route("/proyecto/entregables",methods=['DELETE'])
 def eliminarEnt():
 
-    return "Hola"
+    return "Holi"
 
 @proyectosBP.route("/proyecto/proyectos/<int:id>", methods=['GET'])
 def mostrarProyectos(id):
