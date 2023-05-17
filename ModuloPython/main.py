@@ -1,6 +1,6 @@
 from flask import Flask
-from ModuloProyectos.Proyectos import Proyecto
-from rutaBluePrints import proyectosBP
+
+from ProyectosRest.ModuloPython.rutaBluePrints import proyectosBP
 
 app = Flask(__name__)
 

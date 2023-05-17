@@ -2,39 +2,29 @@ from ProyectosRest.ModuloPython.mongoDB import Conexion
 
 
 def to_json_entregable(entregable):
-    nuevo = {"Nombre": "", "Temas": "", "Fecha_Inicio": "","Fecha_Termina": "","Participantes": ""}
-    nuevo["Nombre"] = str(entregable.get("Nombre"))
+    consulta = { "Fecha_Programada": "", "Fecha_entregado": "", "Observaciones": "","Archivo": ""}
+    consulta["Fecha_Programada"] = str(entregable.get("Fecha_Programada"))
+    consulta["Fecha_entregado"]=str(entregable.get("Fecha_entregado"))
+    consulta["Observaciones"]=str (entregable.get("Observaciones"))
+    consulta["Archivo"]=str (entregable.get("Archivo"))
 
-    temas = []
-    for t in entregable.get("Temas"):
-        temas.append(t)
-    nuevo["Temas"] = temas
-    nuevo["Fecha_Inicio"] = str(entregable.get("Fecha_Inicio"))
-    nuevo["Fecha_Termina"] = str(entregable.get("Fecha_Termina"))
-
-    participantes = []
-    for p in entregable.get("Participantes"):
-        participantes.append(p)
-    nuevo["Participantes"] = participantes
-    return nuevo
+    return consulta
 
 
 class Entregables:
     def __init__(self):
         self.cn = Conexion()
 
-    def consultarEntregable(self):
+    def consultarEntregable(self,id):
         resp = {"Estatus": "", "Mensaje": ""}
-        res = self.cn.entregables.find_one({})
-        entregables = []
-        for ent in res:
+        res = self.cn.entregables.find_one({"_id": id})
 
-            entregables.append(to_json_entregable(ent))
 
-        if len(entregables) > 0:
+        print(res)
+        if res:
             resp["Estatus"] = "OK"
-            resp["Mensaje"] = "Listado de Entregables"
-            resp["Proyectos"] = entregables
+            resp["Mensaje"] = "Si existe el entregable"
+            resp["Entregables"] = to_json_entregable(res)
         else:
             resp["Estatus"] = "Error"
             resp["Mensaje"] = "Fallo"

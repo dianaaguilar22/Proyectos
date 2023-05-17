@@ -1,4 +1,6 @@
 from flask import blueprints, request
+
+from ProyectosRest.ModuloPython.ModuloEntregables.Entregables import Entregables
 from ProyectosRest.ModuloPython.ModuloProyectos.Proyectos import Proyecto
 
 
@@ -21,14 +23,15 @@ def agregarEnt():
 def modificarEnt():
     return "Hola"
 
-@proyectosBP.route("/proyecto/entregables",methods=['GET'])
-def mostrarEnt():
-    return "Hola"
+@proyectosBP.route("/proyecto/entregable/<int:id>",methods=['GET'])
+def mostrarEnt(id):
+    ent=Entregables()
+    return ent.consultarEntregable(id)
 
 @proyectosBP.route("/proyecto/entregables",methods=['DELETE'])
 def eliminarEnt():
-    cn=Conexion()
-    return cn.eliminarEnt()
+
+    return "Hola"
 
 @proyectosBP.route("/proyecto/proyectos/<int:id>", methods=['GET'])
 def mostrarProyectos(id):
