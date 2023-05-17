@@ -13,10 +13,22 @@ def mostrarRev():
 
 # Aquí va las funciones
 
-@proyectosBP.route("/proyecto/entregables")
+@proyectosBP.route("/proyecto/entregables",methods=['POST'])
+def agregarEnt():
+    return "Hola"
+
+@proyectosBP.route("/proyecto/entregables",methods=['PUT'])
+def modificarEnt():
+    return "Hola"
+
+@proyectosBP.route("/proyecto/entregables",methods=['GET'])
 def mostrarEnt():
     return "Hola"
 
+@proyectosBP.route("/proyecto/entregables",methods=['DELETE'])
+def eliminarEnt():
+    cn=Conexion()
+    return cn.eliminarEnt()
 
 @proyectosBP.route("/proyecto/proyectos", methods=['GET'])
 def mostrar():
