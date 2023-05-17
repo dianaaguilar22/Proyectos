@@ -18,10 +18,10 @@ def mostrarEnt():
     return "Hola"
 
 
-@proyectosBP.route("/proyecto/proyectos", methods=['GET'])
-def mostrarProyectos():
+@proyectosBP.route("/proyecto/proyectos/<int:id>", methods=['GET'])
+def mostrarProyectos(id):
     pr = Proyecto()
-    return pr.consultarProyectos()
+    return pr.consultarProyectos(id)
 
 @proyectosBP.route("/proyecto/proyectos/<int:id>", methods=['DELETE'])
 def eliminarProyectos(id):

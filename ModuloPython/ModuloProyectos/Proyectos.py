@@ -11,9 +11,9 @@ class Proyecto:
     def __init__(self):
         self.cn = Conexion()
 
-    def consultarProyectos(self):
+    def consultarProyectos(self, id):
         resp = {"Estatus": "", "Mensaje": ""}
-        res = self.cn.proyectos.find({})
+        res = self.cn.proyectos.find_one({"_id": id})
         proyectos = []
         for pro in res:
             print(pro)
@@ -64,23 +64,28 @@ class Proyecto:
 
     def agregarProyecto(self, dato):
         resp = {"Estatus": "", "Mensaje": ""}
+        existe = self.cn.proyectos.find_one({"_id": dato["_id"]})
         print(dato)
-        try:
-            fecha_inicio = datetime.strptime(dato["Fecha_Inicio"], '%d/%m/%y')
-            print(fecha_inicio)
-            fecha_termina = datetime.strptime(dato["Fecha_Termina"], '%d/%m/%y')
-            print(fecha_termina)
+        if not(existe):
+            try:
+                fecha_inicio = datetime.strptime(dato["Fecha_Inicio"], '%d/%m/%y')
+                print(fecha_inicio)
+                fecha_termina = datetime.strptime(dato["Fecha_Termina"], '%d/%m/%y')
+                print(fecha_termina)
 
-            if fecha_inicio < fecha_termina:
-                self.cn.proyectos.insert_one(dato)
-                resp["Estatus"] = "Oki"
-                resp["Mensaje"] = "El proyecto se ingreso bien"
-            else:
+                if fecha_inicio < fecha_termina:
+                    self.cn.proyectos.insert_one(dato)
+                    resp["Estatus"] = "Oki"
+                    resp["Mensaje"] = "El proyecto se ingreso bien"
+                else:
+                    resp["Estatus"] = "Error"
+                    resp["Mensaje"] = "La fecha de inicio es mayor a la de termino"
+            except:
                 resp["Estatus"] = "Error"
-                resp["Mensaje"] = "La fecha de inicio es mayor a la de termino"
-        except:
+                resp["Mensaje"] = "La fecha esta mal ingresada"
+        else:
             resp["Estatus"] = "Error"
-            resp["Mensaje"] = "La fecha esta mal ingresada"
+            resp["Mensaje"] = "El proyecto ya existe"
 
         return resp
 
