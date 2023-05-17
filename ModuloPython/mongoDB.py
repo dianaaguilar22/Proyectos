@@ -10,3 +10,4 @@ class Conexion:
         self.proyectos = self.bd.proyecto
         self.entregables = self.bd.entregables
         self.revisiones = self.bd.revisiones
+        self.personas = self.bd.persona

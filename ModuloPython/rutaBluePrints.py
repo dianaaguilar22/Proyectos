@@ -30,13 +30,24 @@ def eliminarEnt():
     cn=Conexion()
     return cn.eliminarEnt()
 
-@proyectosBP.route("/proyecto/proyectos", methods=['GET'])
-def mostrar():
+@proyectosBP.route("/proyecto/proyectos/<int:id>", methods=['GET'])
+def mostrarProyectos(id):
     pr = Proyecto()
-    return pr.consultarProyectos()
+    return pr.consultarProyectos(id)
 
+@proyectosBP.route("/proyecto/proyectos/<int:id>", methods=['DELETE'])
+def eliminarProyectos(id):
+    pr = Proyecto()
+    return pr.eliminarProyecto(id)
 
 @proyectosBP.route("/proyecto/proyectos", methods=['POST'])
-def insertar():
+def insertarProyecto():
+    pr = Proyecto()
     datos = request.get_json()
-    return
+    return pr.agregarProyecto(datos)
+
+@proyectosBP.route("/proyecto/proyectos", methods=['PUT'])
+def modificarProyecto():
+    pr = Proyecto()
+    datos = request.get_json()
+    return pr.modificarProyecto(datos)
