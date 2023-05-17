@@ -29,7 +29,13 @@ def eliminarProyectos(id):
     return pr.eliminarProyecto(id)
 
 @proyectosBP.route("/proyecto/proyectos", methods=['POST'])
-def insertar():
+def insertarProyecto():
     pr = Proyecto()
     datos = request.get_json()
     return pr.agregarProyecto(datos)
+
+@proyectosBP.route("/proyecto/proyectos", methods=['PUT'])
+def modificarProyecto():
+    pr = Proyecto()
+    datos = request.get_json()
+    return pr.modificarProyecto(datos)
