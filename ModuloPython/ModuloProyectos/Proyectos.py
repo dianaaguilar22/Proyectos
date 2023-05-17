@@ -62,3 +62,24 @@ class Proyecto:
             resp["Mensaje"] = "El proyecto no se encuentra o no existe"
         return resp
 
+    def agregarProyecto(self, dato):
+        resp = {"Estatus": "", "Mensaje": ""}
+        print(dato)
+        try:
+            fecha_inicio = datetime.strptime(dato["Fecha_Inicio"], '%d/%m/%y')
+            print(fecha_inicio)
+            fecha_termina = datetime.strptime(dato["Fecha_Termina"], '%d/%m/%y')
+            print(fecha_termina)
+
+            if fecha_inicio < fecha_termina:
+                self.cn.proyectos.insert_one(dato)
+                resp["Estatus"] = "Oki"
+                resp["Mensaje"] = "El proyecto se ingreso bien"
+            else:
+                resp["Estatus"] = "Error"
+                resp["Mensaje"] = "La fecha de inicio es mayor a la de termino"
+        except:
+            resp["Estatus"] = "Error"
+            resp["Mensaje"] = "La fecha esta mal ingresada"
+
+        return resp
