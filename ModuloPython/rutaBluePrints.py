@@ -19,12 +19,17 @@ def mostrarEnt():
 
 
 @proyectosBP.route("/proyecto/proyectos", methods=['GET'])
-def mostrar():
+def mostrarProyectos():
     pr = Proyecto()
     return pr.consultarProyectos()
 
+@proyectosBP.route("/proyecto/proyectos/<int:id>", methods=['DELETE'])
+def eliminarProyectos(id):
+    pr = Proyecto()
+    return pr.eliminarProyecto(id)
 
 @proyectosBP.route("/proyecto/proyectos", methods=['POST'])
 def insertar():
+    pr = Proyecto()
     datos = request.get_json()
-    return
+    return pr.agregarProyecto(datos)

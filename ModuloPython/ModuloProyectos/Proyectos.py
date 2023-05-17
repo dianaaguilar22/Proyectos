@@ -1,3 +1,6 @@
+from datetime import datetime
+from bson import ObjectId
+
 from ProyectosRest.ModuloPython.mongoDB import Conexion
 
 
@@ -46,3 +49,16 @@ class Proyecto:
             participantes.append(parti)
         nuevo["Participantes"] = participantes
         return nuevo
+
+    def eliminarProyecto(self, id_pro):
+        resp = {"Estatus": "", "Mensaje": ""}
+        res = self.cn.proyectos.delete_one({"_id": id_pro})
+
+        if res.deleted_count > 0:
+            resp["Estatus"] = "ok"
+            resp["Mensaje"] = "El proyecto se elemino"
+        else:
+            resp["Estatus"] = "Error"
+            resp["Mensaje"] = "El proyecto no se encuentra o no existe"
+        return resp
+
