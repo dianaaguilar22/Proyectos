@@ -9,15 +9,11 @@ class Revisiones:
     def consultarRevision(self, id):
         resp = {"Estatus": "", "Mensaje": ""}
         res = self.cn.revisiones.find_one({"_id": id})
-        revisiones = []
-        for rev in res:
-            print(rev)
-            revisiones.append(self.to_json_revision(rev))
 
-        if len(revisiones) > 0:
+        if res:
             resp["Estatus"] = "OK"
             resp["Mensaje"] = "Listado de Revisiones Chidas"
-            resp["Proyectos"] = revisiones
+            resp["Proyectos"] = self.to_json_revision(res)
         else:
             resp["Estatus"] = "Error"
             resp["Mensaje"] = "Fallo"

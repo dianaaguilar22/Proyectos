@@ -56,10 +56,10 @@ def insertarProyecto():
 
 #------------------------Revisiones------------------------
 
-@proyectosBP.route("/proyecto/revisiones", methods=['GET'])
-def mostrarRevisiones():
+@proyectosBP.route("/proyecto/revisiones/<int:id>", methods=['GET'])
+def mostrarRevisiones(id):
     re = Revisiones()
-    return re.consultarRevision()
+    return re.consultarRevision(id)
 
 @proyectosBP.route("/proyecto/revisiones", methods=["POST"])
 def insertarRevision():
