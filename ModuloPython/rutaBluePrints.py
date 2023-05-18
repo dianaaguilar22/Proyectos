@@ -2,6 +2,7 @@ from flask import blueprints, request
 
 from ProyectosRest.ModuloPython.ModuloEntregables.Entregables import Entregables
 from ProyectosRest.ModuloPython.ModuloProyectos.Proyectos import Proyecto
+from ProyectosRest.ModuloPython.ModuloRevisiones.Revisiones import Revisiones
 
 
 proyectosBP = blueprints.Blueprint("Proyectos", __name__)
@@ -53,8 +54,26 @@ def insertarProyecto():
     datos = request.get_json()
     return pr.agregarProyecto(datos)
 
-@proyectosBP.route("/proyecto/proyectos", methods=['PUT'])
-def modificarProyecto():
-    pr = Proyecto()
+#------------------------Revisiones------------------------
+
+@proyectosBP.route("/proyecto/revisiones", methods=['GET'])
+def mostrarRevisiones():
+    re = Revisiones()
+    return re.consultarRevision()
+
+@proyectosBP.route("/proyecto/revisiones", methods=["POST"])
+def insertarRevision():
+    re = Revisiones()
     datos = request.get_json()
-    return pr.modificarProyecto(datos)
+    return re.agregarRevision(datos)
+
+@proyectosBP.route("/proyecto/revisiones/<int:id>", methods=["DELETE"])
+def eliminarRevision(id):
+    re = Revisiones()
+    return re.eliminarRevision(id)
+
+@proyectosBP.route("/proyecto/revisiones/<int:id>", methods=["PUT"])
+def modicarRevisiones(id):
+    re = Revisiones()
+    return re.modificarRevision(id)
+
