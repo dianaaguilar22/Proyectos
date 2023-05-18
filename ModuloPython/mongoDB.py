@@ -11,3 +11,11 @@ class Conexion:
         self.entregables = self.bd.entregables
         self.revisiones = self.bd.revisiones
         self.personas = self.bd.persona
+
+
+    def validarLogin(self, usuario, password):
+        user = self.bd.persona.find_one({"usuario": usuario, "password": password})
+        if user:
+            return user
+        else:
+            return None
