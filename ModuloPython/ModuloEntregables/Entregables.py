@@ -90,7 +90,7 @@ class Entregables:
             resp["Estatus"] = "Error"
             resp["Mensaje"] = "No es posible modificar este entregable"
 
-        return respgi
+        return resp
 
 
 
