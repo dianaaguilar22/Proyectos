@@ -1,6 +1,8 @@
 {
     "_id": "<ObjectId>",
     "Nombre":"<String>",
-    "Tipo":"<String>"
+    "Tipo":"<String>",
+    "usuario":"<String>",
+    "contraseña":"<String>"
    
 }

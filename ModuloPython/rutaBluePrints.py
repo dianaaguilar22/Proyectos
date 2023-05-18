@@ -9,9 +9,7 @@ proyectosBP = blueprints.Blueprint("Proyectos", __name__)
 
 
 
-@proyectosBP.route("/proyecto/revisiones")
-def mostrarRev():
-    return "Hola en Revsiones"
+
 
 
 # Aquí va las funciones
