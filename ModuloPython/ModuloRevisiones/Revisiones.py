@@ -38,27 +38,32 @@ class Revisiones:
 
     def agregarRevision(self, dato):
         resp = {"Estatus": "", "Mensaje": ""}
-        existe = self.cn.revisiones.find_one({"_id": dato["_id"]})
+        existeRev = self.cn.revisiones.find_one({"_id": dato["_id"]})
+        existeProy = self.cn.proyectos.find_one({"_id": dato["IdProyecto"]})
         print(dato)
-        if not (existe):
-            try:
-                fecha = datetime.strptime(dato["Fecha"], '%d/%m/%y')
-                print(fecha)
-                hoy = datetime.now()
+        if existeProy:
+            if not (existeRev):
+                try:
+                    fecha = datetime.strptime(dato["Fecha"], '%d/%m/%y')
+                    print(fecha)
+                    hoy = datetime.now()
 
-                if fecha <= hoy:
-                    self.cn.revisiones.insert_one(dato)
-                    resp["Estatus"] = "Oki"
-                    resp["Mensaje"] = "La revision se ingreso bien"
-                else:
+                    if fecha <= hoy:
+                        self.cn.revisiones.insert_one(dato)
+                        resp["Estatus"] = "Oki"
+                        resp["Mensaje"] = "La revision se ingreso bien"
+                    else:
+                        resp["Estatus"] = "Error"
+                        resp["Mensaje"] = "La fecha es mayor a la de hoy"
+                except:
                     resp["Estatus"] = "Error"
-                    resp["Mensaje"] = "La fecha es mayor a la de hoy"
-            except:
+                    resp["Mensaje"] = "La fecha esta mal ingresada"
+            else:
                 resp["Estatus"] = "Error"
-                resp["Mensaje"] = "La fecha esta mal ingresada"
+                resp["Mensaje"] = "La revision ya existe"
         else:
             resp["Estatus"] = "Error"
-            resp["Mensaje"] = "La revision ya existe"
+            resp["Mensaje"] = "No existe el proyecto al que le quieres agregar la revision"
 
         return resp
 
@@ -66,27 +71,32 @@ class Revisiones:
 
     def modificarRevision(self, dato):
         resp = {"Estatus": "", "Mensaje": ""}
-        existe = self.cn.revisiones.find_one({"_id": dato["_id"]})
+        existeRev = self.cn.revisiones.find_one({"_id": dato["_id"]})
+        existeProy = self.cn.proyectos.find_one({"_id": dato["IdProyecto"]})
         print(dato)
-        if (existe):
-            try:
-                fecha = datetime.strptime(dato["Fecha"], '%d/%m/%y')
-                print(fecha)
-                hoy = datetime.now()
+        if existeProy:
+            if (existeRev):
+                try:
+                    fecha = datetime.strptime(dato["Fecha"], '%d/%m/%y')
+                    print(fecha)
+                    hoy = datetime.now()
 
-                if fecha <= hoy:
-                    self.cn.revisiones.update_one({"_id": dato["_id"]}, {"$set": dato})
-                    resp["Estatus"] = "Oki"
-                    resp["Mensaje"] = "La revision se modifico bien"
-                else:
+                    if fecha <= hoy:
+                        self.cn.revisiones.update_one({"_id": dato["_id"]}, {"$set": dato})
+                        resp["Estatus"] = "Oki"
+                        resp["Mensaje"] = "La revision se modifico bien"
+                    else:
+                        resp["Estatus"] = "Error"
+                        resp["Mensaje"] = "La fecha es mayor a la de hoy"
+                except:
                     resp["Estatus"] = "Error"
-                    resp["Mensaje"] = "La fecha es mayor a la de hoy"
-            except:
+                    resp["Mensaje"] = "La fecha esta mal ingresada"
+            else:
                 resp["Estatus"] = "Error"
-                resp["Mensaje"] = "La fecha esta mal ingresada"
+                resp["Mensaje"] = "La revision no existe"
         else:
             resp["Estatus"] = "Error"
-            resp["Mensaje"] = "La revision no existe"
+            resp["Mensaje"] = "No existe el proyecto al que le quieres agregar la revision"
 
         return resp
 
