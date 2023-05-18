@@ -68,6 +68,29 @@ class Entregables:
             resp["Mensaje"] = "El entregable no existe"
         return resp
 
+    def modificarEntregable(self, dato):
+        resp = {"Estatus": "", "Mensaje": ""}
+        existe = self.cn.entregables.find_one({"_id": dato["_id"]})
+        print(dato)
+        print(existe)
+        if (existe):
+            try:
+                fecha_programada = datetime.strptime(dato["Fecha_Programada"], '%d/%m/%y')
+                print(fecha_programada)
+                fecha_entregado = datetime.strptime(dato["Fecha_entregado"], '%d/%m/%y')
+                print(fecha_entregado)
+                self.cn.entregables.update_one({"_id": dato["_id"]}, {"$set": dato})
+                resp["Estatus"] = "Oki"
+                resp["Mensaje"] = "El entregable se actualizo correctamente"
+
+            except:
+                resp["Estatus"] = "Error"
+                resp["Mensaje"] = "La fecha esta mal ingresada"
+        else:
+            resp["Estatus"] = "Error"
+            resp["Mensaje"] = "No es posible modificar este entregable"
+
+        return respgi
 
 
 
