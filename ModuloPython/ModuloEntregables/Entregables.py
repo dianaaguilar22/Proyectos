@@ -53,3 +53,21 @@ class Entregables:
 
         return resp
 
+    def eliminarEntregable(self,id):
+        resp = {"Estatus": "", "Mensaje": ""}
+        res = self.cn.entregables.find_one({"_id": id})
+
+
+        print(res)
+        if res:
+            self.cn.entregables.delete_one({"_id": id})
+            resp["Estatus"] = "OK"
+            resp["Mensaje"] = "Se elimino el entregable"
+        else:
+            resp["Estatus"] = "Error"
+            resp["Mensaje"] = "El entregable no existe"
+        return resp
+
+
+
+
