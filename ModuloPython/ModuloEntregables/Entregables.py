@@ -1,5 +1,5 @@
 from ProyectosRest.ModuloPython.mongoDB import Conexion
-
+from datetime import datetime
 
 def to_json_entregable(entregable):
     consulta = { "Fecha_Programada": "", "Fecha_entregado": "", "Observaciones": "","Archivo": ""}
@@ -28,5 +28,28 @@ class Entregables:
         else:
             resp["Estatus"] = "Error"
             resp["Mensaje"] = "Fallo"
+        return resp
+
+    def agregarEntregable(self, dato):
+        resp = {"Estatus": "", "Mensaje": ""}
+        existe = self.cn.entregables.find_one({"_id": dato["_id"]})
+        print(dato)
+        if not (existe):
+            try:
+                fecha_programada = datetime.strptime(dato["Fecha_Programada"], '%d/%m/%y')
+                print(fecha_programada)
+                fecha_entregado = datetime.strptime(dato["Fecha_entregado"], '%d/%m/%y')
+                print(fecha_entregado)
+                self.cn.entregables.insert_one(dato)
+                resp["Estatus"] = "Oki"
+                resp["Mensaje"] = "El entregable se ingreso bien"
+
+            except:
+                resp["Estatus"] = "Error"
+                resp["Mensaje"] = "La fecha no es correcta"
+        else:
+            resp["Estatus"] = "Error"
+            resp["Mensaje"] = "El entregable ya existe"
+
         return resp
 

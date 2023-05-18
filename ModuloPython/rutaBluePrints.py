@@ -17,21 +17,25 @@ def mostrarRev():
 
 @proyectosBP.route("/proyecto/entregables",methods=['POST'])
 def agregarEnt():
-    return "Hola"
+    ent = Entregables()
+    datos = request.get_json()
+    return ent.agregarEntregable(datos)
 
 @proyectosBP.route("/proyecto/entregables",methods=['PUT'])
 def modificarEnt():
-    return "Hola"
+    ent = Entregables()
+    datos = request.get_json()
+    return ent.modificarEntregable(datos)
 
-@proyectosBP.route("/proyecto/entregable/<int:id>",methods=['GET'])
+@proyectosBP.route("/proyecto/entregables/<int:id>",methods=['GET'])
 def mostrarEnt(id):
     ent=Entregables()
     return ent.consultarEntregable(id)
 
-@proyectosBP.route("/proyecto/entregables",methods=['DELETE'])
-def eliminarEnt():
-
-    return "Holi"
+@proyectosBP.route("/proyecto/entregables/<int:id>",methods=['DELETE'])
+def eliminarEnt(id):
+    en = Entregables()
+    return en.eliminarEntregable(id)
 
 @proyectosBP.route("/proyecto/proyectos/<int:id>", methods=['GET'])
 def mostrarProyectos(id):
