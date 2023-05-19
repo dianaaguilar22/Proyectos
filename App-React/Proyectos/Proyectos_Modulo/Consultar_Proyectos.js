@@ -1,23 +1,25 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-} from "react-native";
-import { useEffect, useState} from "react";
+import { Button, StyleSheet, Text, View, ScrollView } from "react-native";
+import base64 from "react-native-base64";
+import { useEffect, useState } from "react";
+
+
 
 export default function Consultar_Proyectos() {
   const [data, setData] = useState([]);
-  //URL: la URL de tu endpoint API
+  
+ 
   const getProyectos = async () =>  {
-    const response = await fetch("http://127.0.0.1:5000/proyecto/entregables/1")
+    const response = await fetch("https://3471-2806-261-2400-1c92-2dc2-5589-cc3-f7b1.ngrok-free.app/proyecto/proyectos/2",{
+  method: 'GET',
+  headers: {
+    Authorization: "Basic " + base64.encode("juan@correo.com" + ":" + "1234"),
+  },})
       .then((response) => response.json())
       .then((responseJson) => {
         alert(JSON.stringify(responseJson));
         console.log(typeof responseJson);
-        
+
         console.log(responseJson)
       })
       .catch((error) => {
@@ -26,6 +28,7 @@ export default function Consultar_Proyectos() {
         console.error(error);
       });
   }
+  
 
   useEffect(() => {
     getProyectos();

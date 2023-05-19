@@ -1,5 +1,5 @@
 from datetime import datetime
-from bson import ObjectId
+
 
 from ProyectosRest.ModuloPython.mongoDB import Conexion
 
@@ -14,18 +14,14 @@ class Proyecto:
     def consultarProyectos(self, id):
         resp = {"Estatus": "", "Mensaje": ""}
         res = self.cn.proyectos.find_one({"_id": id})
-        proyectos = []
-        for pro in res:
-            print(pro)
-            proyectos.append(self.to_json_proyecto(pro))
-
-        if len(proyectos) > 0:
+        print(res)
+        if res:
             resp["Estatus"] = "OK"
-            resp["Mensaje"] = "Listado de Proyectos Chidos"
-            resp["Proyectos"] = proyectos
+            resp["Mensaje"] = "Proyectos Chidos"
+            resp["Proyectos"] = self.to_json_proyecto(res)
         else:
             resp["Estatus"] = "Error"
-            resp["Mensaje"] = "Fallo"
+            resp["Mensaje"] = "No existe el proyecto"
         return resp
 
     def to_json_proyecto(self, proyecto):
