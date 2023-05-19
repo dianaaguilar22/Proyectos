@@ -24,6 +24,22 @@ class Proyecto:
             resp["Mensaje"] = "No existe el proyecto"
         return resp
 
+    def consultarProyectoTodos(self):
+        resp = {"Estatus": "", "Mensaje": ""}
+        res = self.cn.proyectos.find({})
+        lista = []
+
+        for p in res:
+            nuevo = self.to_json_proyecto(p)
+            lista.append(nuevo)
+        if res:
+            resp["Estatus"] = "OK"
+            resp["Mensaje"] = "Proyectos Chidos"
+            resp["Proyectos"] = lista
+        else:
+            resp["Estatus"] = "Error"
+            resp["Mensaje"] = "No existe el proyecto"
+        return resp
     def to_json_proyecto(self, proyecto):
         nuevo = {"Nombre": "", "Temas": "", "Fecha_Inicio": "", "Fecha_Termina": "", "Participantes": ""}
         nuevo["Nombre"] = str(proyecto.get("Nombre"))
@@ -43,7 +59,7 @@ class Proyecto:
             parti["Nombre"] = par.get("Nombre")
             parti["Tipo"] = par.get("Tipo")
             participantes.append(parti)
-        nuevo["Participantes"] = participantes
+        nuevo["Participantes"] = str(participantes)
         return nuevo
 
     def eliminarProyecto(self, id_pro):

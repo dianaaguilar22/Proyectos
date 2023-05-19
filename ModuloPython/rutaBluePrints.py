@@ -70,6 +70,19 @@ def mostrarProyectos(id):
     return pr.consultarProyectos(id)
 
 
+@proyectosBP.route("/proyecto/proyectos", methods=['GET'])
+@auth.login_required(role=["Alumno", "Docente"])
+def mostrarProyectosTodos():
+    pr = Proyecto()
+    return pr.consultarProyectoTodos()
+
+@proyectosBP.route("/proyecto/proyectos", methods=['PUT'])
+def modificarProyecto():
+    pr = Proyecto()
+    datos = request.get_json()
+    return pr.modificarProyecto(datos)
+
+
 @proyectosBP.route("/proyecto/proyectos/<int:id>", methods=['DELETE'])
 @auth.login_required(role="Alumno")
 def eliminarProyectos(id):
@@ -109,8 +122,9 @@ def eliminarRevision(id):
     return re.eliminarRevision(id)
 
 
-@proyectosBP.route("/proyecto/revisiones/<int:id>", methods=["PUT"])
+@proyectosBP.route("/proyecto/revisiones", methods=["PUT"])
 @auth.login_required(role="Docente")
-def modicarRevisiones(id):
+def modicarRevisiones():
     re = Revisiones()
-    return re.modificarRevision(id)
+    datos = request.get_json()
+    return re.modificarRevision()

@@ -1,7 +1,12 @@
 {
     "_id":"<ObjectId>",
     "idProyectos":"ref(Proyectos)",
-    "Fecha":"<date>",
-    "Observaciones":["<string>"],
-    "Porcentaje":"<integer>"
+    "FechaIni":"<date>",
+    "FechaTer":"<date>",
+    "Observaciones":[{
+       "Comentario":"<String>",
+       "Estatus":"<String>" 
+    }],
+    "IdPersona":"ref(Persona)",
+    "Estatus":"<String>"
 }

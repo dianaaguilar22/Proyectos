@@ -10,7 +10,7 @@ export default function Consultar_Proyectos() {
   
  
   const getProyectos = async () =>  {
-    const response = await fetch("https://3471-2806-261-2400-1c92-2dc2-5589-cc3-f7b1.ngrok-free.app/proyecto/proyectos/2",{
+    const response = await fetch("https://613b-2806-261-2400-1c92-2dc2-5589-cc3-f7b1.ngrok-free.app/proyecto/proyectos",{
   method: 'GET',
   headers: {
     Authorization: "Basic " + base64.encode("juan@correo.com" + ":" + "1234"),

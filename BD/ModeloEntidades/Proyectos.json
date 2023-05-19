@@ -11,5 +11,6 @@
          "IdPersona":"Ref(Persona)",
          "Tipo": "<String>"
       }
-   ]
+   ],
+   "estatus": ""
 }
