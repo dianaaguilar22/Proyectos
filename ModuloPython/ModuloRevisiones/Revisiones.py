@@ -22,15 +22,21 @@ class Revisiones:
     #------------------------------ToJson ------------------------------
 
     def to_json_revision(self, revi):
-        nuevo = {"Fecha": "", "IdProyecto": "", "Observaciones": "", "Porcentaje": ""}
+        nuevo = {"IdProyecto": "", "FechaIni": "", "FechaTer": "", "Observaciones": "", "IdPersona": "","Estatus":""}
 
-        nuevo["Fecha"] = str(revi.get("Fecha"))
+        nuevo["IdProyecto"] = str(revi.get("IdProyecto"))
+        nuevo["FechaIni"] = str(revi.get("FechaIni"))
+        nuevo["FechaTer"] = str(revi.get("FechaTer"))
         nuevo["IdProyecto"] = str(revi.get("IdProyecto"))
         observaciones = []
         for o in revi.get("Observaciones"):
-            observaciones.append(o)
+            par = {"Comentario":"", "Estatus":""}
+            par["Comentario"] = str(o.get("Comentario"))
+            par["Estatus"] = str(o.get("Estatus"))
+            observaciones.append(par)
         nuevo["Observaciones"] = observaciones
-        nuevo["Porcentaje"] = str(revi.get("Porcentaje"))
+        nuevo["IdPersona"] = str(revi.get("IdPersona"))
+        nuevo["Estatus"] = str(revi.get("Estatus"))
 
         return nuevo
 
@@ -44,7 +50,7 @@ class Revisiones:
         if existeProy:
             if not (existeRev):
                 try:
-                    fecha = datetime.strptime(dato["Fecha"], '%d/%m/%y')
+                    fecha = datetime.strptime(dato["FechaIni"], '%d/%m/%y')
                     print(fecha)
                     hoy = datetime.now()
 
@@ -77,7 +83,7 @@ class Revisiones:
         if existeProy:
             if (existeRev):
                 try:
-                    fecha = datetime.strptime(dato["Fecha"], '%d/%m/%y')
+                    fecha = datetime.strptime(dato["FechaIni"], '%d/%m/%y')
                     print(fecha)
                     hoy = datetime.now()
 

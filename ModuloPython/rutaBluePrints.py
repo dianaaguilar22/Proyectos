@@ -127,4 +127,4 @@ def eliminarRevision(id):
 def modicarRevisiones():
     re = Revisiones()
     datos = request.get_json()
-    return re.modificarRevision()
+    return re.modificarRevision(datos)

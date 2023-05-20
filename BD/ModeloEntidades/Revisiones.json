@@ -1,6 +1,6 @@
 {
     "_id":"<ObjectId>",
-    "idProyectos":"ref(Proyectos)",
+    "IdProyecto":"ref(Proyectos)",
     "FechaIni":"<date>",
     "FechaTer":"<date>",
     "Observaciones":[{
