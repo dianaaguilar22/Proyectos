@@ -50,17 +50,9 @@ class Revisiones:
         if existeProy:
             if not (existeRev):
                 try:
-                    fecha = datetime.strptime(dato["FechaIni"], '%d/%m/%y')
-                    print(fecha)
-                    hoy = datetime.now()
-
-                    if fecha <= hoy:
-                        self.cn.revisiones.insert_one(dato)
-                        resp["Estatus"] = "Oki"
-                        resp["Mensaje"] = "La revision se ingreso bien"
-                    else:
-                        resp["Estatus"] = "Error"
-                        resp["Mensaje"] = "La fecha es mayor a la de hoy"
+                    self.cn.revisiones.insert_one(dato)
+                    resp["Estatus"] = "Oki"
+                    resp["Mensaje"] = "La revision se ingreso bien"
                 except:
                     resp["Estatus"] = "Error"
                     resp["Mensaje"] = "La fecha esta mal ingresada"
@@ -83,17 +75,9 @@ class Revisiones:
         if existeProy:
             if (existeRev):
                 try:
-                    fecha = datetime.strptime(dato["FechaIni"], '%d/%m/%y')
-                    print(fecha)
-                    hoy = datetime.now()
-
-                    if fecha <= hoy:
-                        self.cn.revisiones.update_one({"_id": dato["_id"]}, {"$set": dato})
-                        resp["Estatus"] = "Oki"
-                        resp["Mensaje"] = "La revision se modifico bien"
-                    else:
-                        resp["Estatus"] = "Error"
-                        resp["Mensaje"] = "La fecha es mayor a la de hoy"
+                    self.cn.revisiones.update_one({"_id": dato["_id"]}, {"$set": dato})
+                    resp["Estatus"] = "Oki"
+                    resp["Mensaje"] = "La revision se modifico bien"
                 except:
                     resp["Estatus"] = "Error"
                     resp["Mensaje"] = "La fecha esta mal ingresada"
