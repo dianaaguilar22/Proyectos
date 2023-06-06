@@ -1,55 +1,78 @@
 import { StatusBar } from "expo-status-bar";
-import { Button, StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, FlatList } from "react-native";
 import base64 from "react-native-base64";
 import { useEffect, useState } from "react";
+import { Button } from "react-native-elements";
+import Icon from "react-native-vector-icons/FontAwesome";
 
+function VistaCard( navigation, item) {
+  return (
+    <View style={styles.cards}>
+      <Text style={styles.id}>{item.id}</Text>
 
+      <Text style={styles.titulo}>{item.Nombre} </Text>
 
-export default function Consultar_Proyectos() {
+      <View style={styles.buttons}>
+        <Button
+          icon={<Icon name="edit" size={15} color="white" />}
+          
+          onPress={""}
+        />
+        <Button
+          icon={<Icon name="trash" size={15} color="white" />}
+          onPress={""}
+        />
+        <Button
+          icon={<Icon name="arrow-right" size={15} color="white" />}
+          onPress={() => navigation.navigate('Proyecto', {item: item})}
+        />
+      </View>
+    </View>
+  );
+}
+
+export default function Consultar_Proyectos( { navigation }) {
   const [data, setData] = useState([]);
-  
- 
-  const getProyectos = async () =>  {
-    const response = await fetch("https://613b-2806-261-2400-1c92-2dc2-5589-cc3-f7b1.ngrok-free.app/proyecto/proyectos",{
-  method: 'GET',
-  headers: {
-    Authorization: "Basic " + base64.encode("juan@correo.com" + ":" + "1234"),
-  },})
+
+  const getProyectos = async () => {
+    const response = await fetch(
+      "http://192.168.100.5:5000/proyecto/proyectos",
+      {
+        method: "GET",
+        headers: {
+          Authorization:
+            "Basic " + base64.encode("juan@correo.com" + ":" + "1234"),
+        },
+      }
+    )
       .then((response) => response.json())
       .then((responseJson) => {
-        alert(JSON.stringify(responseJson));
-        console.log(typeof responseJson);
-
-        console.log(responseJson)
+        setData(responseJson.Proyectos);
+        console.log(responseJson.Proyectos);
       })
       .catch((error) => {
         //Error
-        alert(JSON.stringify(error));
         console.error(error);
       });
-  }
-  
+  };
 
   useEffect(() => {
     getProyectos();
   }, []);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.cards}>
-        <Text style={styles.id}>ID</Text>
-
-        <Text style={styles.titulo}>Nombre </Text>
-
-        <View style={styles.buttons}>
-          <Button title="2" />
-          <Button title="E" />
-          <Button title="E" />
-        </View>
-      </View>
-
+    <SafeAreaView style={styles.container}>
+      {data ? (
+        <FlatList
+          data={data}
+          renderItem={({ item }) => VistaCard(navigation, item)}
+          keyExtractor={(item) => item.id}
+        />
+      ) : (
+        <Text>{"No hay datos"}</Text>
+      )}
       <StatusBar style="auto" />
-    </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -58,17 +81,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "flex-start",
+    justifyContent: "center",
     paddingVertical: 20,
+    width: "100%",
   },
   cards: {
     display: "flex",
     flexDirection: "row",
-    width: "90%",
+    width: "95%",
     alignItems: "center",
     justifyContent: "center",
     borderColor: "black",
     borderWidth: 1,
+    borderRadius: 5,
     margin: 5,
   },
   buttons: {
@@ -78,20 +103,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 10,
     width: "30%",
-    borderColor: "black",
-    borderWidth: 1,
+    justifyContent: "space-between",
   },
   id: {
     padding: 10,
-    width: "10%",
-    borderColor: "black",
-    borderWidth: 1,
-    fontSize: 9,
+    width: "15%",
+
+    fontSize: 12,
   },
   titulo: {
     padding: 10,
     width: "50%",
-    borderColor: "black",
-    borderWidth: 1,
   },
 });

@@ -41,9 +41,9 @@ class Proyecto:
             resp["Mensaje"] = "No existe el proyecto"
         return resp
     def to_json_proyecto(self, proyecto):
-        nuevo = {"Nombre": "", "Temas": "", "Fecha_Inicio": "", "Fecha_Termina": "", "Participantes": ""}
+        nuevo = {"id": "","Nombre": "", "Temas": "", "Fecha_Inicio": "", "Fecha_Termina": "", "Participantes": ""}
         nuevo["Nombre"] = str(proyecto.get("Nombre"))
-
+        nuevo["id"] =str(proyecto.get("_id"))
         temas = []
         for t in proyecto.get("Temas"):
             temas.append(t)
@@ -59,7 +59,7 @@ class Proyecto:
             parti["Nombre"] = par.get("Nombre")
             parti["Tipo"] = par.get("Tipo")
             participantes.append(parti)
-        nuevo["Participantes"] = str(participantes)
+        nuevo["Participantes"] = participantes
         return nuevo
 
     def eliminarProyecto(self, id_pro):

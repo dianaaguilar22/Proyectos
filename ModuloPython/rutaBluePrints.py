@@ -56,6 +56,13 @@ def mostrarEnt(id):
     return ent.consultarEntregable(id)
 
 
+@proyectosBP.route("/proyecto/entregables", methods=['GET'])
+@auth.login_required(role=["Alumno", "Docente"])
+def mostrarEntTodos():
+    ent = Entregables()
+    return ent.consultarEntregableTodos()
+
+
 @proyectosBP.route("/proyecto/entregables/<int:id>", methods=['DELETE'])
 @auth.login_required(role="Alumno")
 def eliminarEnt(id):
@@ -75,6 +82,7 @@ def mostrarProyectos(id):
 def mostrarProyectosTodos():
     pr = Proyecto()
     return pr.consultarProyectoTodos()
+
 
 @proyectosBP.route("/proyecto/proyectos", methods=['PUT'])
 def modificarProyecto():
@@ -106,6 +114,12 @@ def mostrarRevisiones(id):
     re = Revisiones()
     return re.consultarRevision(id)
 
+
+@proyectosBP.route("/proyecto/revisiones", methods=['GET'])
+@auth.login_required(role=["Alumno", "Docente"])
+def mostrarRevisionesTodas():
+    re = Revisiones()
+    return re.consultarRevisionTodos()
 
 @proyectosBP.route("/proyecto/revisiones", methods=["POST"])
 @auth.login_required(role="Docente")

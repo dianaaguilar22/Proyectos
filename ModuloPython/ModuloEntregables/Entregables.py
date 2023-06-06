@@ -1,12 +1,10 @@
 from ProyectosRest.ModuloPython.mongoDB import Conexion
 from datetime import datetime
-
+import pyshorteners as ps
 def to_json_entregable(entregable):
-    consulta = { "Fecha_Programada": "", "Fecha_entregado": "", "Observaciones": "","Archivo": ""}
-    consulta["Fecha_Programada"] = str(entregable.get("Fecha_Programada"))
-    consulta["Fecha_entregado"]=str(entregable.get("Fecha_entregado"))
-    consulta["Observaciones"]=str (entregable.get("Observaciones"))
-    consulta["Archivo"]=str (entregable.get("Archivo"))
+    consulta = {"id": entregable.get("_id"), "Fecha_Programada": str(entregable.get("Fecha_Programada")),
+                "Fecha_entregado": str(entregable.get("Fecha_entregado")),
+                "Observaciones": str(entregable.get("Observaciones")), "Archivo": str(ps.Shortener().tinyurl.short(str(entregable.get("Archivo"))))}
 
     return consulta
 
@@ -25,6 +23,24 @@ class Entregables:
             resp["Estatus"] = "OK"
             resp["Mensaje"] = "Si existe el entregable"
             resp["Entregables"] = to_json_entregable(res)
+        else:
+            resp["Estatus"] = "Error"
+            resp["Mensaje"] = "Fallo"
+        return resp
+
+    def consultarEntregableTodos(self):
+        resp = {"Estatus": "", "Mensaje": ""}
+        res = self.cn.entregables.find({})
+        lista = []
+
+        for e in res:
+            print(e)
+            nuevo = to_json_entregable(e)
+            lista.append(nuevo)
+        if res:
+            resp["Estatus"] = "OK"
+            resp["Mensaje"] = "Si existe el entregable"
+            resp["Entregables"] = lista
         else:
             resp["Estatus"] = "Error"
             resp["Mensaje"] = "Fallo"

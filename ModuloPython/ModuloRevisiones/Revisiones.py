@@ -19,15 +19,31 @@ class Revisiones:
             resp["Mensaje"] = "Fallo"
         return resp
 
+
+    def consultarRevisionTodos(self):
+        resp = {"Estatus": "", "Mensaje": ""}
+        res = self.cn.revisiones.find({})
+
+        lista = []
+
+        for r in res:
+            nuevo = self.to_json_revision(r)
+            lista.append(nuevo)
+        if res:
+            resp["Estatus"] = "OK"
+            resp["Mensaje"] = "Listado de Revisiones Chidas"
+            resp["Revisiones"] = lista
+        else:
+            resp["Estatus"] = "Error"
+            resp["Mensaje"] = "Fallo"
+        return resp
+
     #------------------------------ToJson ------------------------------
 
     def to_json_revision(self, revi):
-        nuevo = {"IdProyecto": "", "FechaIni": "", "FechaTer": "", "Observaciones": "", "IdPersona": "","Estatus":""}
+        nuevo = {"Fecha": "","id": "", "IdProyecto": str(revi.get("IdProyecto")), "FechaIni": str(revi.get("FechaIni")),
+                 "FechaTer": str(revi.get("FechaTer")), "Observaciones": "", "IdPersona": "", "Estatus": ""}
 
-        nuevo["IdProyecto"] = str(revi.get("IdProyecto"))
-        nuevo["FechaIni"] = str(revi.get("FechaIni"))
-        nuevo["FechaTer"] = str(revi.get("FechaTer"))
-        nuevo["IdProyecto"] = str(revi.get("IdProyecto"))
         observaciones = []
         for o in revi.get("Observaciones"):
             par = {"Comentario":"", "Estatus":""}
@@ -37,7 +53,8 @@ class Revisiones:
         nuevo["Observaciones"] = observaciones
         nuevo["IdPersona"] = str(revi.get("IdPersona"))
         nuevo["Estatus"] = str(revi.get("Estatus"))
-
+        nuevo["id"]= str(revi.get("_id"))
+        nuevo["Fecha"] = str(revi.get("Fecha"))
         return nuevo
 
     # ------------------------------Agregar ------------------------------
