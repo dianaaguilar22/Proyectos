@@ -18,20 +18,7 @@ export default function Menu_Proyectos({ navigation }) {
         color="#841584"
       />
       </View>
-      <View style={styles.botones}>
-      <Button
-        onPress={() => navigation.navigate('EliminarProyectos')}
-        title="Eliminar"
-        color="#841584"
-      />
-      </View>
-      <View style={styles.botones}>
-      <Button
-        onPress={() => navigation.navigate('ModificarProyecto')}
-        title="Modificar"
-        color="#841584"
-      />
-      </View>
+     
       <StatusBar style="auto" />
     </View>
   );

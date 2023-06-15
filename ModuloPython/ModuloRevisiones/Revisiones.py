@@ -1,3 +1,5 @@
+from bson import ObjectId
+
 from ProyectosRest.ModuloPython.mongoDB import Conexion
 from datetime import datetime
 
@@ -61,21 +63,19 @@ class Revisiones:
 
     def agregarRevision(self, dato):
         resp = {"Estatus": "", "Mensaje": ""}
-        existeRev = self.cn.revisiones.find_one({"_id": dato["_id"]})
+
         existeProy = self.cn.proyectos.find_one({"_id": dato["IdProyecto"]})
         print(dato)
         if existeProy:
-            if not (existeRev):
-                try:
-                    self.cn.revisiones.insert_one(dato)
-                    resp["Estatus"] = "Oki"
-                    resp["Mensaje"] = "La revision se ingreso bien"
-                except:
-                    resp["Estatus"] = "Error"
-                    resp["Mensaje"] = "La fecha esta mal ingresada"
-            else:
+
+            try:
+                self.cn.revisiones.insert_one(dato)
+                resp["Estatus"] = "Oki"
+                resp["Mensaje"] = "La revision se ingreso bien"
+            except:
                 resp["Estatus"] = "Error"
-                resp["Mensaje"] = "La revision ya existe"
+                resp["Mensaje"] = "La fecha esta mal ingresada"
+
         else:
             resp["Estatus"] = "Error"
             resp["Mensaje"] = "No existe el proyecto al que le quieres agregar la revision"
@@ -86,13 +86,15 @@ class Revisiones:
 
     def modificarRevision(self, dato):
         resp = {"Estatus": "", "Mensaje": ""}
-        existeRev = self.cn.revisiones.find_one({"_id": dato["_id"]})
+        existeRev = self.cn.revisiones.find_one({"_id": ObjectId(dato["_id"])})
         existeProy = self.cn.proyectos.find_one({"_id": dato["IdProyecto"]})
         print(dato)
         if existeProy:
             if (existeRev):
                 try:
-                    self.cn.revisiones.update_one({"_id": dato["_id"]}, {"$set": dato})
+                    id = dato["_id"]
+                    del dato["_id"]
+                    self.cn.revisiones.update_one({"_id": ObjectId(id)}, {"$set": dato})
                     resp["Estatus"] = "Oki"
                     resp["Mensaje"] = "La revision se modifico bien"
                 except:

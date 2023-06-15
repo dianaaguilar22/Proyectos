@@ -2,7 +2,7 @@ from ProyectosRest.ModuloPython.mongoDB import Conexion
 from datetime import datetime
 import pyshorteners as ps
 def to_json_entregable(entregable):
-    consulta = {"id": entregable.get("_id"), "Fecha_Programada": str(entregable.get("Fecha_Programada")),
+    consulta = {"id": str(entregable.get("_id")), "Fecha_Programada": str(entregable.get("Fecha_Programada")),
                 "Fecha_entregado": str(entregable.get("Fecha_entregado")),
                 "Observaciones": str(entregable.get("Observaciones")), "Archivo": str(ps.Shortener().tinyurl.short(str(entregable.get("Archivo"))))}
 
@@ -48,24 +48,22 @@ class Entregables:
 
     def agregarEntregable(self, dato):
         resp = {"Estatus": "", "Mensaje": ""}
-        existe = self.cn.entregables.find_one({"_id": dato["_id"]})
-        print(dato)
-        if not (existe):
-            try:
-                fecha_programada = datetime.strptime(dato["Fecha_Programada"], '%d/%m/%y')
-                print(fecha_programada)
-                fecha_entregado = datetime.strptime(dato["Fecha_entregado"], '%d/%m/%y')
-                print(fecha_entregado)
-                self.cn.entregables.insert_one(dato)
-                resp["Estatus"] = "Oki"
-                resp["Mensaje"] = "El entregable se ingreso bien"
 
-            except:
-                resp["Estatus"] = "Error"
-                resp["Mensaje"] = "La fecha no es correcta"
-        else:
+        print(dato)
+
+        try:
+            fecha_programada = datetime.strptime(dato["Fecha_Programada"], '%d/%m/%Y')
+            print(fecha_programada)
+            fecha_entregado = datetime.strptime(dato["Fecha_entregado"], '%d/%m/%Y')
+            print(fecha_entregado)
+            self.cn.entregables.insert_one(dato)
+            resp["Estatus"] = "Oki"
+            resp["Mensaje"] = "El entregable se ingreso bien"
+
+        except:
             resp["Estatus"] = "Error"
-            resp["Mensaje"] = "El entregable ya existe"
+            resp["Mensaje"] = "La fecha no es correcta"
+
 
         return resp
 

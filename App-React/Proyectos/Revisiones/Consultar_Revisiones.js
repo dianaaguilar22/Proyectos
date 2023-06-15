@@ -4,6 +4,7 @@ import base64 from "react-native-base64";
 import { useEffect, useState } from "react";
 import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { ruta } from "../Pantallas_Utilidades/ruta"
 function VistaCard(navigation, item) {
   return(<View style={styles.cards}>
     <Text style={styles.id}>{item.id}</Text>
@@ -14,11 +15,32 @@ function VistaCard(navigation, item) {
     <Button
           icon={<Icon name="edit" size={15} color="white" />}
           
-          onPress={""}
+          onPress={() => navigation.navigate('ModificarRevision', {item: item})}
         />
         <Button
           icon={<Icon name="trash" size={15} color="white" />}
-          onPress={""}
+          onPress={async () => {
+            const response = await fetch(
+              ruta+"/proyecto/proyectos/"+item.id,
+              {
+                method: "DELETE",
+                headers: {
+                  Authorization:
+                    "Basic " + base64.encode("luis@correo.com" + ":" + "1234"),
+                },
+              }
+            )
+              .then((response) => response.json())
+              .then((responseJson) => {
+               
+                console.log(responseJson);
+                navigation.goBack()
+              })
+              .catch((error) => {
+                //Error
+                console.error(error);
+              });
+          }}
         />
         <Button
           icon={<Icon name="arrow-right" size={15} color="white" />}
@@ -33,7 +55,7 @@ export default function Consultar_Revision( { navigation }){
   
  
   const getProyectos = async () =>  {
-    const response = await fetch("http://192.168.100.5:5000/proyecto/revisiones",{
+    const response = await fetch(ruta+"/proyecto/revisiones",{
   method: 'GET',
   headers: {
     Authorization: "Basic " + base64.encode("juan@correo.com" + ":" + "1234"),

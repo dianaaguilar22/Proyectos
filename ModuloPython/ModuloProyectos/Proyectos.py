@@ -1,10 +1,8 @@
 from datetime import datetime
 
+from bson import ObjectId
 
 from ProyectosRest.ModuloPython.mongoDB import Conexion
-
-
-
 
 
 class Proyecto:
@@ -30,8 +28,10 @@ class Proyecto:
         lista = []
 
         for p in res:
-            nuevo = self.to_json_proyecto(p)
-            lista.append(nuevo)
+            print(p)
+            if p is not None:
+                nuevo = self.to_json_proyecto(p)
+                lista.append(nuevo)
         if res:
             resp["Estatus"] = "OK"
             resp["Mensaje"] = "Proyectos Chidos"
@@ -40,10 +40,11 @@ class Proyecto:
             resp["Estatus"] = "Error"
             resp["Mensaje"] = "No existe el proyecto"
         return resp
+
     def to_json_proyecto(self, proyecto):
-        nuevo = {"id": "","Nombre": "", "Temas": "", "Fecha_Inicio": "", "Fecha_Termina": "", "Participantes": ""}
+        nuevo = {"id": "", "Nombre": "", "Temas": "", "Fecha_Inicio": "", "Fecha_Termina": "", "Participantes": ""}
         nuevo["Nombre"] = str(proyecto.get("Nombre"))
-        nuevo["id"] =str(proyecto.get("_id"))
+        nuevo["id"] = str(proyecto.get("_id"))
         temas = []
         for t in proyecto.get("Temas"):
             temas.append(t)
@@ -54,11 +55,13 @@ class Proyecto:
         participantes = []
         for p in proyecto.get("Participantes"):
             parti = {"Nombre": "", "Tipo": ""}
-            par = self.cn.bd.persona.find_one({"_id":p.get("IdPersona")})
+
+            par = self.cn.bd.persona.find_one({"_id": p.get("IdPersona")})
             print(par)
-            parti["Nombre"] = par.get("Nombre")
-            parti["Tipo"] = par.get("Tipo")
-            participantes.append(parti)
+            if par is not None:
+                parti["Nombre"] = par.get("Nombre")
+                parti["Tipo"] = par.get("Tipo")
+                participantes.append(parti)
         nuevo["Participantes"] = participantes
         return nuevo
 
@@ -76,51 +79,53 @@ class Proyecto:
 
     def agregarProyecto(self, dato):
         resp = {"Estatus": "", "Mensaje": ""}
-        existe = self.cn.proyectos.find_one({"_id": dato["_id"]})
-        print(dato)
-        if not(existe):
-            try:
-                fecha_inicio = datetime.strptime(dato["Fecha_Inicio"], '%d/%m/%y')
-                print(fecha_inicio)
-                fecha_termina = datetime.strptime(dato["Fecha_Termina"], '%d/%m/%y')
-                print(fecha_termina)
 
-                if fecha_inicio < fecha_termina:
-                    self.cn.proyectos.insert_one(dato)
-                    resp["Estatus"] = "Oki"
-                    resp["Mensaje"] = "El proyecto se ingreso bien"
-                else:
-                    resp["Estatus"] = "Error"
-                    resp["Mensaje"] = "La fecha de inicio es mayor a la de termino"
-            except:
+        print(dato)
+
+        try:
+            fecha_inicio = datetime.strptime(dato["Fecha_Inicio"], '%d/%m/%Y')
+            print(fecha_inicio)
+            fecha_termina = datetime.strptime(dato["Fecha_Termina"], '%d/%m/%Y')
+            print(fecha_termina)
+
+            if fecha_inicio < fecha_termina:
+                self.cn.proyectos.insert_one(dato)
+                resp["Estatus"] = "Oki"
+                resp["Mensaje"] = "El proyecto se ingreso bien"
+            else:
                 resp["Estatus"] = "Error"
-                resp["Mensaje"] = "La fecha esta mal ingresada"
-        else:
+                resp["Mensaje"] = "La fecha de inicio es mayor a la de termino"
+        except:
             resp["Estatus"] = "Error"
-            resp["Mensaje"] = "El proyecto ya existe"
+            resp["Mensaje"] = "La fecha esta mal ingresada"
 
         return resp
 
     def modificarProyecto(self, dato):
         resp = {"Estatus": "", "Mensaje": ""}
-        existe = self.cn.proyectos.find_one({"_id": dato["_id"]})
+        existe = self.cn.proyectos.find_one({"_id": ObjectId(dato["_id"])})
+
         if existe:
             try:
-                fecha_inicio = datetime.strptime(dato["Fecha_Inicio"], '%d/%m/%y')
+                fecha_inicio = datetime.strptime(dato["Fecha_Inicio"], '%d/%m/%Y')
                 print(fecha_inicio)
-                fecha_termina = datetime.strptime(dato["Fecha_Termina"], '%d/%m/%y')
+                fecha_termina = datetime.strptime(dato["Fecha_Termina"], '%d/%m/%Y')
                 print(fecha_termina)
                 print(fecha_inicio < fecha_termina)
+
+                print("Si entro")
                 if fecha_inicio < fecha_termina:
-                    self.cn.proyectos.update_one({"_id": dato["_id"]}, {"$set": dato})
+                    id = dato["_id"]
+                    del dato["_id"]
+                    self.cn.proyectos.update_one({"_id":  ObjectId(id)}, {"$set": dato})
                     resp["Estatus"] = "Oki"
                     resp["Mensaje"] = "El proyecto se actualizo"
                 else:
                     resp["Estatus"] = "Error"
                     resp["Mensaje"] = "La fecha de inicio es mayor a la de termino"
-            except:
+            except NameError:
                 resp["Estatus"] = "Error"
-                resp["Mensaje"] = "La fecha esta mal ingresada"
+                resp["Mensaje"] = str(NameError)
         else:
             resp["Estatus"] = "Error"
             resp["Mensaje"] = "El proyecto no existe"

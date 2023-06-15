@@ -18,20 +18,7 @@ export default function Menu_Revisiones({ navigation }) {
         color="#841584"
       />
       </View>
-      <View style={styles.botones}>
-      <Button
-        onPress={() => navigation.navigate('EliminarRevision')}
-        title="Eliminar"
-        color="#841584"
-      />
-      </View>
-      <View style={styles.botones}>
-      <Button
-        onPress={() => navigation.navigate('ModificarRevision')}
-        title="Modificar"
-        color="#841584"
-      />
-      </View>
+      
       <StatusBar style="auto" />
     </View>
   );

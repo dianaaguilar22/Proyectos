@@ -36,8 +36,8 @@ export default function App() {
         <Stack.Screen name="MenuRevisiones" component={Menu_Revisiones} />
         <Stack.Screen name="VerRevision" component={Ver_Revsion} />
         <Stack.Screen name="ConsultarRevision" component={Consultar_Revision} />
-        <Stack.Screen name="ResgitrarRevision" component={Modificar_Revision} />
-        <Stack.Screen name="ModificarRevision" component={Registrar_Revision} />
+        <Stack.Screen name="ModificarRevision" component={Modificar_Revision} />
+        <Stack.Screen name="ResgitrarRevision" component={Registrar_Revision} />
 
 
         <Stack.Screen name="MenuEntregables" component={Menu_Entregables} />

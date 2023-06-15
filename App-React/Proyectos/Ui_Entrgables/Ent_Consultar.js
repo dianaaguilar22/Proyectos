@@ -19,7 +19,28 @@ function VistaCard(navigation,item) {
         />
         <Button
           icon={<Icon name="trash" size={15} color="white" />}
-          onPress={""}
+          onPress={async () => {
+            const response = await fetch(
+              "http://192.168.100.5:5000/proyecto/proyectos/"+item.id,
+              {
+                method: "DELETE",
+                headers: {
+                  Authorization:
+                    "Basic " + base64.encode("juan@correo.com" + ":" + "1234"),
+                },
+              }
+            )
+              .then((response) => response.json())
+              .then((responseJson) => {
+               
+                console.log(responseJson);
+                navigation.goBack()
+              })
+              .catch((error) => {
+                //Error
+                console.error(error);
+              });
+          }}
         />
         <Button
           icon={<Icon name="arrow-right" size={15} color="white" />}

@@ -85,6 +85,7 @@ def mostrarProyectosTodos():
 
 
 @proyectosBP.route("/proyecto/proyectos", methods=['PUT'])
+@auth.login_required(role="Alumno")
 def modificarProyecto():
     pr = Proyecto()
     datos = request.get_json()
@@ -103,6 +104,7 @@ def eliminarProyectos(id):
 def insertarProyecto():
     pr = Proyecto()
     datos = request.get_json()
+    print(datos)
     return pr.agregarProyecto(datos)
 
 

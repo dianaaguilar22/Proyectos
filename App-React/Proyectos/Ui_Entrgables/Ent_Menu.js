@@ -18,20 +18,7 @@ export default function Menu_Entregables({ navigation }) {
         color="#841584"
       />
       </View>
-      <View style={styles.botones}>
-      <Button
-        onPress={() => navigation.navigate('Ent_Eliminar')}
-        title="Eliminar"
-        color="#841584"
-      />
-      </View>
-      <View style={styles.botones}>
-      <Button
-        onPress={() => navigation.navigate('Ent_Modificar')}
-        title="Modificar"
-        color="#841584"
-      />
-      </View>
+      
       <StatusBar style="auto" />
     </View>
   );
